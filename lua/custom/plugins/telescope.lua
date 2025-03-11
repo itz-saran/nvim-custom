@@ -1,10 +1,10 @@
 return {
-	'nvim-telescope/telescope.nvim', tag = '0.1.8',
+	"nvim-telescope/telescope.nvim", tag = "0.1.8",
 	event = "VimEnter",
 	dependencies = {
-		'nvim-lua/plenary.nvim',
+		"nvim-lua/plenary.nvim",
 		{
-			'nvim-telescope/telescope-fzf-native.nvim',
+			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 			cond = function()
 				return vim.fn.executable "make" == 1
@@ -33,13 +33,13 @@ return {
 			},
 		}
 		-- Enable Telescope extensions if they are installed
-		pcall(require('telescope').load_extension, 'fzf')
-		pcall(require('telescope').load_extension, 'ui-select')
+		pcall(require("telescope").load_extension, "fzf")
+		pcall(require("telescope").load_extension, "ui-select")
 
 		local builtin = require "telescope.builtin"
 		local map = function(keys, func, desc, mode)
-            mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            mode = mode or "n"
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
 		if vim.fn.executable "git" == 1 then
@@ -88,6 +88,28 @@ return {
 			{ desc = "[f]ind [r]registers" }
 		)
 
+		vim.keymap.set(
+			"n", 
+			"<leader>f/",
+			function()
+				builtin.live_grep {
+					grep_open_files = true,
+					prompt_title = "Live Grep in Open Files",
+				}
+			end, 
+			{ desc = "[S]earch [/] in Open Files" }
+		)
+
+		-- Shortcut for searching your Neovim configuration files
+		vim.keymap.set(
+			"n",
+			"<leader>fn",
+			function()
+				builtin.find_files { cwd = vim.fn.stdpath "config" }
+			end,
+			{ desc = "[s]earch [n]eovim files" }
+		)
+
 		if vim.fn.executable "rg" == 1 then
 			vim.keymap.set(
 				"n",
@@ -100,7 +122,7 @@ return {
 				"n",
 				"<leader>fW",
 				function()
-				  require("telescope.builtin").live_grep {
+				  builtin.live_grep {
 					additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
 				  }
 				end,
