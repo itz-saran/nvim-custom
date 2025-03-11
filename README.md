@@ -3,10 +3,11 @@
 windows :)
 
 ## Requirements:
-    - gcc
+    - **chocolatey(must)**
+    - mingw64 (choco install mingw)
     - Nerd font
-    - ripgrep
-    - lua
-    - luarocks
+    - ripgrep (choco install ripgrep)
+    - lua (choco install lua)
+    - luarocks - (choco install luarocks)
     - git
     - lazygit
