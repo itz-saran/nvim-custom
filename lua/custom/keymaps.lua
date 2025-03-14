@@ -6,7 +6,7 @@ vim.keymap.set("n", "<leader>w", vim.cmd.write, { desc = "Save file" })
 vim.keymap.set("n", "<leader>q", vim.cmd.exit, { desc = "Exit neovim" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-vim.keymap.set("n", "-", "ddKp")
+vim.keymap.set("n", "-", "ddkP")
 vim.keymap.set("n", "+", "ddp")
 
 -- Window focus commands
