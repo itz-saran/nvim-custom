@@ -1,9 +1,12 @@
 vim.g.mapleader = " "
 vim.g.localmapleader = " "
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex, { desc = "Open file explorer" })
+vim.keymap.set("n", "<leader>e", vim.cmd.Explore, { desc = "Open file explorer" })
 vim.keymap.set("n", "<leader>w", vim.cmd.write, { desc = "Save file" })
 vim.keymap.set("n", "<leader>q", vim.cmd.exit, { desc = "Exit neovim" })
+vim.keymap.set("n", "bd", vim.cmd.bdelete, { desc = "Buffer close" })
+vim.keymap.set("n", "]b", vim.cmd.bnext, { desc = "Next Buffer" })
+vim.keymap.set("n", "[b", vim.cmd.bprevious, { desc = "Previous Buffer" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "-", "ddkP")
