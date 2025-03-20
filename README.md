@@ -12,3 +12,4 @@ windows :)
     - Nerd font
     - git
     - lazygit
+    - python
