@@ -41,3 +41,5 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+-- For opening file/dirs that has '(' and ')' in their names eg: /routes/(tabs)/+page.svelte
+vim.opt.isfname:append({ '(', ')' })
