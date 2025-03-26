@@ -12,6 +12,10 @@ return {
 			end,
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			version = "^1.0.0",
+		},
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 	},
 	config = function()
@@ -36,6 +40,7 @@ return {
 		-- Enable Telescope extensions if they are installed
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "live_grep_args")
 
 		local builtin = require("telescope.builtin")
 		local map = function(keys, func, desc, mode)
@@ -64,12 +69,14 @@ return {
 				grep_open_files = true,
 				prompt_title = "Live Grep in Open Files",
 			})
-		end, { desc = "[S]earch [/] in Open Files" })
+		end, { desc = "[f]ind [/] in Open Files" })
+
+		vim.keymap.set("n", "<leader>rs", builtin.resume, { desc = "[r]esume [s]earch" })
 
 		-- Shortcut for searching your Neovim configuration files
 		vim.keymap.set("n", "<leader>fn", function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
-		end, { desc = "[s]earch [n]eovim files" })
+		end, { desc = "[f]ind [n]eovim files" })
 
 		if vim.fn.executable("rg") == 1 then
 			vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "[f]ind [w]ords" })
@@ -81,6 +88,10 @@ return {
 					end,
 				})
 			end, { desc = "[f]ind [W]ords in all files" })
+
+			vim.keymap.set("n", "<leader>af", function()
+				require("telescope").extensions.live_grep_args.live_grep_args()
+			end, { desc = "[a]dvanced [f]ind" })
 		end
 	end,
 }
