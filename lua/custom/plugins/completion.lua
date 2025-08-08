@@ -30,6 +30,22 @@ return {
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
 
+		-- for autocompleting params of lsp signature help. DEFAULT: cmp.mapping.confirm({select = true})
+		local cmp_confirm = cmp.mapping.confirm({
+			behaviour = cmp.ConfirmBehavior.Replace,
+			select = false,
+		})
+
+		local confirm = cmp.sync(function(fallback)
+			local e = cmp.core.view:get_selected_entry()
+			if e and e.source.name == "nvim_lsp_signature_help" then
+				fallback()
+			else
+				cmp_confirm(fallback)
+			end
+		end)
+		-- end
+
 		cmp.setup({
 			snippet = {
 				expand = function(args)
@@ -42,7 +58,7 @@ return {
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<CR>"] = confirm,
 				["<Tab>"] = cmp.mapping.select_next_item(),
 				["<S-Tab>"] = cmp.mapping.select_prev_item(),
 

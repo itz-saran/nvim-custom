@@ -161,7 +161,6 @@ return {
 			somesass_ls = {},
 			svelte = {},
 			emmet_ls = {},
-			eslint = {},
 			remark_ls = {},
 			lua_ls = {
 				settings = {
